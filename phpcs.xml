@@ -3,5 +3,10 @@
     <description>PSR-12</description>
     <rule ref="PSR12">
     </rule>
+    <rule ref="PEAR.WhiteSpace.ScopeIndent">
+        <properties>
+            <property name="indent" value="2"/>
+        </properties>
+    </rule>
     <exclude-pattern>/vendor/*</exclude-pattern>
 </ruleset>

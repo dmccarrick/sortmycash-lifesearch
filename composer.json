@@ -23,6 +23,6 @@
         "ext-simplexml": "*"
     },
     "scripts": {
-        "phpcs": "vendor/bin/phpcs --standard=PSR12 --ignore=vendor ."
+        "phpcs": "vendor/bin/phpcs --standard=phpcs.xml --ignore=vendor ."
     }
 }
