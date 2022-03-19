@@ -1,6 +1,5 @@
 <?php
 
-
 namespace SortMyCash\LifeSearch;
 
 use SimpleXMLElement;
@@ -11,12 +10,12 @@ use SimpleXMLElement;
  * Class XMLBuilder
  * @package SortMyCash\LifeSearch
  */
-class XMLBuilder implements \SortMyCash\LifeSearch\Contracts\XMLBuilder
+class XMLBuilder implements Contracts\XMLBuilderInterface
 {
-  const DEFAULT_PRODUCT_TYPE = "Term";
-  const DEFAULT_DEATH_BENEFIT = true;
-  const DEFAULT_TERM_YEARS = 20;
-  const DEFAULT_COVER_AMOUNT = 200000;
+  private const DEFAULT_PRODUCT_TYPE = "Term";
+  private const DEFAULT_DEATH_BENEFIT = true;
+  private const DEFAULT_TERM_YEARS = 20;
+  private const DEFAULT_COVER_AMOUNT = 200000;
 
   /** @var [] */
   private $formData = [];
@@ -42,17 +41,24 @@ class XMLBuilder implements \SortMyCash\LifeSearch\Contracts\XMLBuilder
   /** @var SimpleXMLElement */
   private $xml;
 
-  public function __construct(array $formData) {
+  public function __construct(array $formData)
+  {
     $this->setFormData($formData);
     $this->setXML(new SimpleXMLElement($this->getBaseXmlString()));
   }
 
-  public function buildXml() {
+  /**
+   * @return string
+   */
+  public function buildXml(): string
+  {
     $xml = $this->getXml();
 
     $this->addApplicants($xml, $this->getFormData());
     $this->addQuoteRequestDefaults($xml);
     $this->addAffiliateDetails($xml);
+
+    return $this->getXml(true);
   }
 
   /**
@@ -61,16 +67,17 @@ class XMLBuilder implements \SortMyCash\LifeSearch\Contracts\XMLBuilder
    * @param array $formData
    * @return SimpleXMLElement
    */
-  private function addApplicants(SimpleXMLElement $xml, array $formData) {
+  private function addApplicants(SimpleXMLElement $xml, array $formData): SimpleXMLElement
+  {
     $subNode = $xml->addChild('Applicants');
     $contactSubNode = $subNode->addChild('Contact');
     $applicantSubNode = $subNode->addChild('Applicant life="first"');
 
-    foreach($this->contactMappings as $key => $target) {
+    foreach ($this->contactMappings as $key => $target) {
       $contactSubNode->addChild($key, $formData[$target]);
     }
 
-    foreach($this->applicantMappings as $key => $target) {
+    foreach ($this->applicantMappings as $key => $target) {
       $contactSubNode->addChild($key, $formData[$target]);
     }
 
@@ -82,7 +89,8 @@ class XMLBuilder implements \SortMyCash\LifeSearch\Contracts\XMLBuilder
    *
    * @return SimpleXMLElement
    */
-  private function addQuoteRequestDefaults(SimpleXMLElement $xml) {
+  private function addQuoteRequestDefaults(SimpleXMLElement $xml): SimpleXMLElement
+  {
     $subNode = $xml->addChild('QuoteRequest');
     $subNode = $subNode->addChild('QuoteRequest number="1"');
     $subNode = $subNode->addChild('Products');
@@ -101,7 +109,8 @@ class XMLBuilder implements \SortMyCash\LifeSearch\Contracts\XMLBuilder
    *
    * @return SimpleXMLElement
    */
-  private function addAffiliateDetails(SimpleXMLElement $xml, string $enquiryRef = '') {
+  private function addAffiliateDetails(SimpleXMLElement $xml, string $enquiryRef = ''): SimpleXMLElement
+  {
     $subNode = $xml->addChild('Partner');
     $subNode->addChild('BusinessSource', '');
     $subNode->addChild('AdCode', '');
@@ -140,7 +149,8 @@ class XMLBuilder implements \SortMyCash\LifeSearch\Contracts\XMLBuilder
    * @param SimpleXMLElement $xml
    * @return XMLBuilder
    */
-  private function setXML(SimpleXMLElement $xml): XMLBuilder {
+  private function setXML(SimpleXMLElement $xml): XMLBuilder
+  {
     $this->xml = $xml;
     return $this;
   }

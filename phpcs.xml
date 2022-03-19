@@ -3,7 +3,7 @@
     <description>PSR-12</description>
     <rule ref="PSR12">
     </rule>
-    <rule ref="PEAR.WhiteSpace.ScopeIndent">
+    <rule ref="Generic.WhiteSpace.ScopeIndent">
         <properties>
             <property name="indent" value="2"/>
         </properties>

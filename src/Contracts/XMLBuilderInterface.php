@@ -2,9 +2,8 @@
 
 namespace SortMyCash\LifeSearch\Contracts;
 
-
 use SimpleXMLElement;
-use \SortMyCash\LifeSearch\XMLBuilder;
+use SortMyCash\LifeSearch\XMLBuilder;
 
 /**
  * A class responsible for building a simple XML Document based on a received form submission.
@@ -14,7 +13,7 @@ use \SortMyCash\LifeSearch\XMLBuilder;
  */
 interface XMLBuilderInterface
 {
-  public function buildXml();
+  public function buildXml(): string;
 
   /**
    * @param array $formData

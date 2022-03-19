@@ -11,7 +11,7 @@
 
 use SortMyCash\LifeSearch\XMLBuilder;
 
-add_action('forminator_custom_form_submit_before_set_fields', 'receive_form_data_for_life_search');
+// add_action('forminator_custom_form_submit_before_set_fields', 'receive_form_data_for_life_search');
 
 const LIFE_SEARCH_FORM_ID = 1;
 
@@ -25,7 +25,8 @@ const LIFE_SEARCH_FORM_ID = 1;
  * @param array $field_data_array - the entry data
  *
  */
-function receive_form_data_for_life_search($entry, int $form_id, array $field_data_array) {
+function receive_form_data_for_life_search($entry, int $form_id, array $field_data_array)
+{
   if (LIFE_SEARCH_FORM_ID != $form_id) {
     return;
   }
