@@ -16,6 +16,9 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
   private const DEFAULT_DEATH_BENEFIT = true;
   private const DEFAULT_TERM_YEARS = 20;
   private const DEFAULT_COVER_AMOUNT = 200000;
+  private const DEFAULT_NUMBER_OF_APPLICANTS = 1;
+  private const DEFAULT_LIFE_VALUE = 'first';
+  private const DEFAULT_TERM_TYPE = 'Years';
 
   /** @var [] */
   private $formData = [];
@@ -58,7 +61,7 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
     $this->addQuoteRequestDefaults($xml);
     $this->addAffiliateDetails($xml);
 
-    return $this->getXml(true);
+    return $xml->asXML();
   }
 
   /**
@@ -71,14 +74,15 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
   {
     $subNode = $xml->addChild('Applicants');
     $contactSubNode = $subNode->addChild('Contact');
-    $applicantSubNode = $subNode->addChild('Applicant life="first"');
+    $applicantSubNode = $subNode->addChild('Applicant');
+    $applicantSubNode->addAttribute('life', self::DEFAULT_LIFE_VALUE);
 
     foreach ($this->contactMappings as $key => $target) {
       $contactSubNode->addChild($key, $formData[$target]);
     }
 
     foreach ($this->applicantMappings as $key => $target) {
-      $contactSubNode->addChild($key, $formData[$target]);
+      $applicantSubNode->addChild($key, $formData[$target]);
     }
 
     return $xml;
@@ -91,13 +95,16 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
    */
   private function addQuoteRequestDefaults(SimpleXMLElement $xml): SimpleXMLElement
   {
-    $subNode = $xml->addChild('QuoteRequest');
-    $subNode = $subNode->addChild('QuoteRequest number="1"');
+    $subNode = $xml->addChild('QuoteRequests');
+    $subNode = $subNode->addChild('QuoteRequest');
+    $subNode->addAttribute('number', self::DEFAULT_NUMBER_OF_APPLICANTS);
     $subNode = $subNode->addChild('Products');
-    $subNode = $subNode->addChild(sprintf('Product type="%s"', self::DEFAULT_PRODUCT_TYPE));
+    $subNode = $subNode->addChild('Product');
+    $subNode->addAttribute('Type', self::DEFAULT_PRODUCT_TYPE);
     $subNode->addChild('CoverType', self::DEFAULT_PRODUCT_TYPE);
     $subNode->addChild('DeathBenefit', self::DEFAULT_DEATH_BENEFIT);
-    $subNode->addChild('Term type="Years"', self::DEFAULT_TERM_YEARS);
+    $termNode = $subNode->addChild('Term', self::DEFAULT_TERM_YEARS);
+    $termNode->addAttribute('Type', self::DEFAULT_TERM_TYPE);
     $subNode->addChild('CoverAmount', self::DEFAULT_COVER_AMOUNT);
 
     return $xml;
@@ -156,11 +163,10 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
   }
 
   /**
-   * @param bool $asXml
    * @return SimpleXMLElement
    */
-  public function getXml($asXml = false): ?SimpleXMLElement
+  public function getXml(): SimpleXMLElement
   {
-    return $asXml ? $this->xml->asXML() : $this->xml;
+    return $this->xml;
   }
 }

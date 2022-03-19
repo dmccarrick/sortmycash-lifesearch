@@ -27,8 +27,7 @@ interface XMLBuilderInterface
   public function getFormData(): array;
 
   /**
-   * @param bool $asXml
    * @return SimpleXMLElement
    */
-  public function getXml($asXml = false): ?SimpleXMLElement;
+  public function getXml(): SimpleXMLElement;
 }

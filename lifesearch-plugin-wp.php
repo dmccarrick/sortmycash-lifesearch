@@ -11,9 +11,25 @@
 
 use SortMyCash\LifeSearch\XMLBuilder;
 
+require __DIR__ . '/vendor/autoload.php';
+
+// Below is the hook to fire the plugin when a forminator submission occurs.
 // add_action('forminator_custom_form_submit_before_set_fields', 'receive_form_data_for_life_search');
 
 const LIFE_SEARCH_FORM_ID = 1;
+
+$field_data_array = [
+  'title' => 'Mr',
+  'first_name' => 'Daniel',
+  'last_name' => 'McCarrick',
+  'date_of_birth' => '05-11-1982',
+  'tel_no' => '07795468205',
+  'email' => 'dmccarrick@hotmail.com',
+  'consent' => false
+];
+
+// Fot=r testing purposes, via the CLI.
+receive_form_data_for_life_search(null, LIFE_SEARCH_FORM_ID, $field_data_array);
 
 /**
  * Action called before setting fields to database
