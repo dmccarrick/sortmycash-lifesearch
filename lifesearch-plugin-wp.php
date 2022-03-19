@@ -9,6 +9,8 @@
  * Author URI:   https://github.com/dmccarrick/
  */
 
+use SortMyCash\LifeSearch\XMLBuilder;
+
 add_action('forminator_custom_form_submit_before_set_fields', 'receive_form_data_for_life_search');
 
 const LIFE_SEARCH_FORM_ID = 1;
@@ -23,8 +25,13 @@ const LIFE_SEARCH_FORM_ID = 1;
  * @param array $field_data_array - the entry data
  *
  */
-function receive_form_data_for_life_search($entry, $form_id, $field_data_array) {
+function receive_form_data_for_life_search($entry, int $form_id, array $field_data_array) {
   if (LIFE_SEARCH_FORM_ID != $form_id) {
     return;
   }
+
+  $xmlBuilder = new XMLBuilder($field_data_array);
+  $xmlString = $xmlBuilder->buildXml();
+  // Print out to the CLI, for now, will eventually be passed into a new client, to be transmitted to LifeSearch.
+  print_r($xmlString);
 }

@@ -19,7 +19,8 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "guzzlehttp/guzzle": "^7.4"
+        "guzzlehttp/guzzle": "^7.4",
+        "ext-simplexml": "*"
     },
     "scripts": {
         "phpcs": "vendor/bin/phpcs --standard=PSR12 --ignore=vendor ."
