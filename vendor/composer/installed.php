@@ -5,7 +5,7 @@
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'c1175dc68b525c8398b61d204d29baebd10d7fbf',
+        'reference' => 'c16d9f0c6bda42c20423562bdfe3fbc766ce54ba',
         'name' => 'sortmycash/lifesearch',
         'dev' => true,
     ),
@@ -376,7 +376,7 @@
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'c1175dc68b525c8398b61d204d29baebd10d7fbf',
+            'reference' => 'c16d9f0c6bda42c20423562bdfe3fbc766ce54ba',
             'dev_requirement' => false,
         ),
         'squizlabs/php_codesniffer' => array(
