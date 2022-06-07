@@ -19,6 +19,8 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
   private const DEFAULT_NUMBER_OF_APPLICANTS = 1;
   private const DEFAULT_LIFE_VALUE = 'first';
   private const DEFAULT_TERM_TYPE = 'Years';
+  private const DEFAULT_BUSINESS_SOURCE = 'SortMyCash';
+  private const DEFAULT_AD_CODE = 'Web';
 
   /** @var [] */
   private $formData = [];
@@ -39,7 +41,7 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
   ];
 
   /** @var string */
-  private $baseXmlString = '<?xml version="1.0"?><Message type="Lead"></Message>';
+  private $baseXmlString = '<Message type="Lead"></Message>';
 
   /** @var SimpleXMLElement */
   private $xml;
@@ -51,9 +53,9 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
   }
 
   /**
-   * @return string
+   * @return SimpleXMLElement
    */
-  public function buildXml(): string
+  public function buildXml(): SimpleXMLElement
   {
     $xml = $this->getXml();
 
@@ -61,7 +63,7 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
     $this->addQuoteRequestDefaults($xml);
     $this->addAffiliateDetails($xml);
 
-    return $xml->asXML();
+    return $xml;
   }
 
   /**
@@ -119,8 +121,8 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
   private function addAffiliateDetails(SimpleXMLElement $xml, string $enquiryRef = ''): SimpleXMLElement
   {
     $subNode = $xml->addChild('Partner');
-    $subNode->addChild('BusinessSource', '');
-    $subNode->addChild('AdCode', '');
+    $subNode->addChild('BusinessSource', self::DEFAULT_BUSINESS_SOURCE);
+    $subNode->addChild('AdCode', self::DEFAULT_AD_CODE);
     $subNode->addChild('Ref', $enquiryRef);
 
     return $xml;

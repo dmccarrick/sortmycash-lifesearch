@@ -13,7 +13,7 @@ use SortMyCash\LifeSearch\XMLBuilder;
  */
 interface XMLBuilderInterface
 {
-  public function buildXml(): string;
+  public function buildXml(): SimpleXMLElement;
 
   /**
    * @param array $formData

@@ -20,7 +20,9 @@
     "minimum-stability": "stable",
     "require": {
         "guzzlehttp/guzzle": "^7.4",
-        "ext-simplexml": "*"
+        "ext-simplexml": "*",
+        "vlucas/phpdotenv": "^5.4",
+        "ext-json": "*"
     },
     "scripts": {
         "phpcs": "vendor/bin/phpcs --standard=phpcs.xml --ignore=vendor ."
