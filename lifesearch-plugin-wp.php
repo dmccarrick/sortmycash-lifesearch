@@ -18,22 +18,9 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->safeLoad();
 
 // Below is the hook to fire the plugin when a forminator submission occurs.
-// add_action('forminator_custom_form_submit_before_set_fields', 'receive_form_data_for_life_search');
+add_action('forminator_custom_form_submit_before_set_fields', 'receive_form_data_for_life_search');
 
-const LIFE_SEARCH_FORM_ID = 1;
-
-// For testing purposes, via the CLI.
-$field_data_array = [
-  'title' => 'Mr',
-  'first_name' => 'Daniel',
-  'last_name' => 'McCarrick',
-  'date_of_birth' => '1982-11-05',
-  'tel_no' => '07795468205',
-  'email' => 'dmccarrick@hotmail.com',
-  'consent' => 'false'
-];
-
-receive_form_data_for_life_search(true, LIFE_SEARCH_FORM_ID, $field_data_array);
+const LIFE_SEARCH_FORM_ID = 13977;
 
 /**
  * Action called as a result of registering the hook, above.
