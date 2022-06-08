@@ -1,6 +1,6 @@
 <?php
 
-namespace SortMyCash\LifeSearch;
+namespace SortMyCash\LifeSearch\Contracts;
 
 interface LifeSearchClientInterface
 {

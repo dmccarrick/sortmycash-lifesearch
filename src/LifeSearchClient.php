@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use SimpleXMLElement;
 
-class LifeSearchClient implements LifeSearchClientInterface
+class LifeSearchClient implements Contracts\LifeSearchClientInterface
 {
   /**
    * @var Client

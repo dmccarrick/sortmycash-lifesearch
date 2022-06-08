@@ -28,15 +28,15 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
   /** @var [] */
   private $applicantMappings = [
     'Title' => 'title',
-    'FirstName' => 'first_name',
-    'LastName' => 'last_name',
+    'FirstName' => 'name_1',
+    'LastName' => 'name_2',
     'DOB' => 'date_of_birth'
   ];
 
   /** @var [] */
   private $contactMappings = [
-    'Telephone' => 'tel_no',
-    'Email' => 'email',
+    'Telephone' => 'phone-1',
+    'Email' => 'email-1',
     'OptOut' => 'consent'
   ];
 
