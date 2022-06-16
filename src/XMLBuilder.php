@@ -2,6 +2,7 @@
 
 namespace SortMyCash\LifeSearch;
 
+use DateTime;
 use SimpleXMLElement;
 
 /**
@@ -27,17 +28,17 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
 
   /** @var [] */
   private $applicantMappings = [
-    'Title' => 'title',
-    'FirstName' => 'name_1',
-    'LastName' => 'name_2',
-    'DOB' => 'date_of_birth'
+    'Title' => 'select-1',
+    'FirstName' => 'name-1',
+    'LastName' => 'name-2',
+    'DOB' => 'date-1'
   ];
 
   /** @var [] */
   private $contactMappings = [
     'Telephone' => 'phone-1',
     'Email' => 'email-1',
-    'OptOut' => 'consent'
+    'OptOut' => 'consent-opt-out'
   ];
 
   /** @var string */
@@ -84,6 +85,10 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
     }
 
     foreach ($this->applicantMappings as $key => $target) {
+      if ($target == 'date-1') {
+        $formData[$target] = DateTime::createFromFormat('d-m-Y', $formData[$target])->format('Y-m-d');
+      }
+
       $applicantSubNode->addChild($key, $formData[$target]);
     }
 

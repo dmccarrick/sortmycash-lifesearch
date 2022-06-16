@@ -10,6 +10,7 @@
  */
 
 use GuzzleHttp\Client;
+use SortMyCash\LifeSearch\ForminatorFormParser;
 use SortMyCash\LifeSearch\LifeSearchClient;
 use SortMyCash\LifeSearch\LifeSearchLogger;
 use SortMyCash\LifeSearch\XMLBuilder;
@@ -37,25 +38,15 @@ function receive_form_data_for_life_search($entry, int $formId, array $fieldData
     return;
   }
 
-  $dataArray = [];
-  foreach($fieldDataArray as $fieldData) {
-    if (is_array($fieldData['value'])) {
-      foreach ($fieldData['value'] as  $key => $subFieldDataValue) {
-        if ($subFieldDataValue = 'Yes,-I-agree-that-these-details-can-be-shared-with-SortMyCashu2019s-Life-Insurance-partner,-LifeSearch-in-order-for-them-to-contact-me') {
-          $dataArray['consent'] = 'True';
-        } else {
-          $dataArray[$key] = $subFieldDataValue;
-        }
-      }
-    } else {
-      $dataArray[$fieldData['name']] = $fieldData['value'];
-    }
-  }
+  $parser = new ForminatorFormParser($fieldDataArray);
+  $dataArray = $parser->parse();
 
-  $logger->writeLifeSearchLog("Field Data: " . substr(json_encode($dataArray, JSON_PRETTY_PRINT), 0, 1000));
+  $logger->writeLifeSearchLog("Field Data: " . json_encode($dataArray, JSON_PRETTY_PRINT));
 
-  $xmlBuilder = new XMLBuilder($fieldDataArray);
+  $xmlBuilder = new XMLBuilder($dataArray);
   $xml = $xmlBuilder->buildXml();
+
+  $logger->writeLifeSearchLog("XML: " . $xml->asXML());
 
   // Create a new client, so that the XML can be transmitted to LifeSearch.
   $client = new LifeSearchClient(new Client(), $xml);
