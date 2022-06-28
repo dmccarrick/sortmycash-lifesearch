@@ -14,14 +14,18 @@ use SimpleXMLElement;
 class XMLBuilder implements Contracts\XMLBuilderInterface
 {
   private const DEFAULT_PRODUCT_TYPE = "Term";
-  private const DEFAULT_DEATH_BENEFIT = true;
+  private const DEFAULT_DEATH_BENEFIT = "True";
   private const DEFAULT_TERM_YEARS = 20;
   private const DEFAULT_COVER_AMOUNT = 200000;
   private const DEFAULT_NUMBER_OF_APPLICANTS = 1;
   private const DEFAULT_LIFE_VALUE = 'first';
+  private const DEFAULT_LIVES_COVERED = 'First';
+  private const DEFAULT_SMOKER_VALUE = 'false';
   private const DEFAULT_TERM_TYPE = 'Years';
   private const DEFAULT_BUSINESS_SOURCE = 'SortMyCash';
+  private const DEFAULT_ENQUIRY_REF = 'TESTREF';
   private const DEFAULT_AD_CODE = 'Web';
+  private const DEFAULT_ADDRESS = '1 XXXXXXXXX';
 
   /** @var [] */
   private $formData = [];
@@ -38,6 +42,7 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
   private $contactMappings = [
     'Telephone' => 'phone-1',
     'Email' => 'email-1',
+    'Postcode' => 'zip',
     'OptOut' => 'consent-opt-out'
   ];
 
@@ -77,8 +82,10 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
   {
     $subNode = $xml->addChild('Applicants');
     $contactSubNode = $subNode->addChild('Contact');
+    $contactSubNode->addChild('Address', self::DEFAULT_ADDRESS);
     $applicantSubNode = $subNode->addChild('Applicant');
     $applicantSubNode->addAttribute('life', self::DEFAULT_LIFE_VALUE);
+    $applicantSubNode->addChild('smoker', self::DEFAULT_SMOKER_VALUE);
 
     foreach ($this->contactMappings as $key => $target) {
       $contactSubNode->addChild($key, $formData[$target]);
@@ -108,6 +115,7 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
     $subNode = $subNode->addChild('Products');
     $subNode = $subNode->addChild('Product');
     $subNode->addAttribute('Type', self::DEFAULT_PRODUCT_TYPE);
+    $subNode->addChild('LivesCovered', self::DEFAULT_LIVES_COVERED);
     $subNode->addChild('CoverType', self::DEFAULT_PRODUCT_TYPE);
     $subNode->addChild('DeathBenefit', self::DEFAULT_DEATH_BENEFIT);
     $termNode = $subNode->addChild('Term', self::DEFAULT_TERM_YEARS);
@@ -128,7 +136,7 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
     $subNode = $xml->addChild('Partner');
     $subNode->addChild('BusinessSource', self::DEFAULT_BUSINESS_SOURCE);
     $subNode->addChild('AdCode', self::DEFAULT_AD_CODE);
-    $subNode->addChild('Ref', $enquiryRef);
+    $subNode->addChild('Ref', $enquiryRef ? $enquiryRef : self::DEFAULT_ENQUIRY_REF);
 
     return $xml;
   }

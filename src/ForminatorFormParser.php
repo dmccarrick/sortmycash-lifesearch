@@ -1,8 +1,6 @@
 <?php
 
-
 namespace SortMyCash\LifeSearch;
-
 
 use SortMyCash\LifeSearch\Contracts\ForminatorFormParserInterface;
 
@@ -32,10 +30,9 @@ class ForminatorFormParser implements ForminatorFormParserInterface
     $logger = new LifeSearchLogger();
     $dataArray = [];
 
-    foreach($this->getFieldDataArray() as $fieldData) {
+    foreach ($this->getFieldDataArray() as $fieldData) {
       if (is_array($fieldData['value'])) {
-        foreach ($fieldData['value'] as  $key => $subFieldDataValue) {
-          $logger->writeLifeSearchLog('Key: ' . $key . ' Value: ' . $subFieldDataValue . PHP_EOL);
+        foreach ($fieldData['value'] as $key => $subFieldDataValue) {
           if (str_contains($subFieldDataValue, self::CONSENT_KEY_STRING)) {
             $dataArray['consent-opt-out'] = 'false';
           } else {
@@ -68,5 +65,4 @@ class ForminatorFormParser implements ForminatorFormParserInterface
   {
     return $this->fieldDataArray;
   }
-
 }

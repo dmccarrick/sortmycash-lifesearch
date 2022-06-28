@@ -49,6 +49,8 @@ class LifeSearchClient implements Contracts\LifeSearchClientInterface
   public function sendRequest(): array
   {
     try {
+      $logger = new LifeSearchLogger();
+      $logger->writeLifeSearchLog('Sending Request to: ' . $this->getUri());
       $response = $this->client->request($this->method, $this->getUri(), $this->getOptions());
     } catch (GuzzleException $e) {
       return [

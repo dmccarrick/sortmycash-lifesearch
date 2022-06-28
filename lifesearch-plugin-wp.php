@@ -40,13 +40,9 @@ function receive_form_data_for_life_search($entry, int $formId, array $fieldData
 
   $parser = new ForminatorFormParser($fieldDataArray);
   $dataArray = $parser->parse();
-
-  $logger->writeLifeSearchLog("Field Data: " . json_encode($dataArray, JSON_PRETTY_PRINT));
-
+  
   $xmlBuilder = new XMLBuilder($dataArray);
   $xml = $xmlBuilder->buildXml();
-
-  $logger->writeLifeSearchLog("XML: " . $xml->asXML());
 
   // Create a new client, so that the XML can be transmitted to LifeSearch.
   $client = new LifeSearchClient(new Client(), $xml);
