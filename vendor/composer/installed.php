@@ -5,7 +5,7 @@
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '9dabeefe31a41b2e2fad9ef14516e4205a0e0ab8',
+        'reference' => '9c99fc11fdfd2559ee97268d3db731e4f61d8bda',
         'name' => 'sortmycash/lifesearch',
         'dev' => true,
     ),
@@ -29,12 +29,12 @@
             'dev_requirement' => false,
         ),
         'guzzlehttp/guzzle' => array(
-            'pretty_version' => '7.4.1',
-            'version' => '7.4.1.0',
+            'pretty_version' => '7.4.4',
+            'version' => '7.4.4.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../guzzlehttp/guzzle',
             'aliases' => array(),
-            'reference' => 'ee0a041b1760e6a53d2a39c8c34115adc2af2c79',
+            'reference' => 'e3ff079b22820c2029d4c2a87796b6a0b8716ad8',
             'dev_requirement' => false,
         ),
         'guzzlehttp/promises' => array(
@@ -394,7 +394,7 @@
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '9dabeefe31a41b2e2fad9ef14516e4205a0e0ab8',
+            'reference' => '9c99fc11fdfd2559ee97268d3db731e4f61d8bda',
             'dev_requirement' => false,
         ),
         'squizlabs/php_codesniffer' => array(
