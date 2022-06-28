@@ -4,7 +4,7 @@
  * Plugin Name:  SortMyCash - LifeSearch Plugin
  * Plugin URI:   https://github.com/dmccarrick/sortmycash-lifesearch
  * Description:  A WordPress plugin to facilitate integration with LifeSearch's API.
- * Version:      0.1.0
+ * Version:      1.0.0
  * Author:       Daniel McCarrick
  * Author URI:   https://github.com/dmccarrick/
  */
@@ -40,7 +40,7 @@ function receive_form_data_for_life_search($entry, int $formId, array $fieldData
 
   $parser = new ForminatorFormParser($fieldDataArray);
   $dataArray = $parser->parse();
-  
+
   $xmlBuilder = new XMLBuilder($dataArray);
   $xml = $xmlBuilder->buildXml();
 
