@@ -85,7 +85,7 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
     $contactSubNode->addChild('Address', self::DEFAULT_ADDRESS);
     $applicantSubNode = $subNode->addChild('Applicant');
     $applicantSubNode->addAttribute('life', self::DEFAULT_LIFE_VALUE);
-    $applicantSubNode->addChild('smoker', self::DEFAULT_SMOKER_VALUE);
+    $applicantSubNode->addChild('Smoker', self::DEFAULT_SMOKER_VALUE);
 
     foreach ($this->contactMappings as $key => $target) {
       $contactSubNode->addChild($key, $formData[$target]);
@@ -114,12 +114,12 @@ class XMLBuilder implements Contracts\XMLBuilderInterface
     $subNode->addAttribute('number', self::DEFAULT_NUMBER_OF_APPLICANTS);
     $subNode = $subNode->addChild('Products');
     $subNode = $subNode->addChild('Product');
-    $subNode->addAttribute('Type', self::DEFAULT_PRODUCT_TYPE);
+    $subNode->addAttribute('type', self::DEFAULT_PRODUCT_TYPE);
     $subNode->addChild('LivesCovered', self::DEFAULT_LIVES_COVERED);
     $subNode->addChild('CoverType', self::DEFAULT_PRODUCT_TYPE);
     $subNode->addChild('DeathBenefit', self::DEFAULT_DEATH_BENEFIT);
     $termNode = $subNode->addChild('Term', self::DEFAULT_TERM_YEARS);
-    $termNode->addAttribute('Type', self::DEFAULT_TERM_TYPE);
+    $termNode->addAttribute('type', self::DEFAULT_TERM_TYPE);
     $subNode->addChild('CoverAmount', self::DEFAULT_COVER_AMOUNT);
 
     return $xml;
